@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="Clientes" EntityType="Model1.Store.Clientes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Tipos_de_Clientes" EntityType="Model1.Store.Tipos_de_Clientes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Productos" EntityType="Model1.Store.Productos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Usuarios" EntityType="Model1.Store.Usuarios" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Permisos" EntityType="Model1.Store.Permisos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Despachos" EntityType="Model1.Store.Despachos" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ClientesTipos_de_Clientes" Association="Model1.Store.ClientesTipos_de_Clientes">
+      <End Role="Clientes" EntitySet="Clientes" />
+      <End Role="Tipos_de_Clientes" EntitySet="Tipos_de_Clientes" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Clientes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Codigo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Apellidos" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Nombres" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Direccion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Telefono" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Correo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Tipos_de_ClientesId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tipos_de_Clientes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Productos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Codigo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Fecha_Creacion" Type="datetime" Nullable="false" />
+    <Property Name="Fecha_Vencimiento" Type="datetime" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UdM" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Costo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Existencia" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Estado" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombres" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Apellidos" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Rol" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Estado" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Permisos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Estado" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Despachos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+    <Property Name="Tipo_de_accion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Cliente" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="contacto" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Detalle_de_productos" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="ClientesTipos_de_Clientes">
+    <End Role="Clientes" Type="Model1.Store.Clientes" Multiplicity="*" />
+    <End Role="Tipos_de_Clientes" Type="Model1.Store.Tipos_de_Clientes" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Tipos_de_Clientes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Clientes">
+        <PropertyRef Name="Tipos_de_ClientesId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
